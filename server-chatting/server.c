@@ -3,6 +3,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <arpa/inet.h>
+#include <signal.h>
 #include <pthread.h>
 #include "server.h"
 
@@ -12,11 +13,20 @@
 int client_counter = 0;
 pthread_mutex_t counter_mutex = PTHREAD_MUTEX_INITIALIZER; // Mutex untuk melindungi counter klien
 
+// Signal handler untuk membersihkan proses anak
+void sigchld_handler(int signo) {
+    while (waitpid(-1, NULL, WNOHANG) > 0);
+    printf("Child process cleaned up.\n");
+}
+
 // Fungsi utama server
 int main() {
     int server_fd, new_socket;
     struct sockaddr_in address;
     int addrlen = sizeof(address);
+
+    // Signal handler untuk menangani proses anak
+    signal(SIGCHLD, sigchld_handler);
 
     // Membuat socket server
     if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0) {
@@ -34,7 +44,7 @@ int main() {
 
     // Menentukan alamat dan port
     address.sin_family = AF_INET;
-    address.sin_addr.s_addr = INADDR_ANY;
+    address.sin_addr.s_addr = INADDR_ANY; // Mendengarkan di semua antarmuka
     address.sin_port = htons(PORT);
 
     // Mengikat socket ke port
@@ -72,7 +82,7 @@ int main() {
         // Fork untuk menangani klien dalam proses terpisah
         if (fork() == 0) {
             close(server_fd); // Tutup server_fd di proses anak
-            handle_client(new_socket, client_id); // Tangani klien dengan ID unik
+            handle_client(new_socket, client_id); // Tangani klien
             exit(0); // Proses anak selesai
         }
 
