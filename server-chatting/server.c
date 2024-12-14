@@ -13,12 +13,6 @@
 int client_counter = 0;
 pthread_mutex_t counter_mutex = PTHREAD_MUTEX_INITIALIZER; // Mutex untuk melindungi counter klien
 
-// Signal handler untuk membersihkan proses anak
-void sigchld_handler(int signo) {
-    while (waitpid(-1, NULL, WNOHANG) > 0);
-    printf("Child process cleaned up.\n");
-}
-
 // Fungsi utama server
 int main() {
     int server_fd, new_socket;

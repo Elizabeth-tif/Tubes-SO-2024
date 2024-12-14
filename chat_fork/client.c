@@ -44,8 +44,8 @@ int main() {
     server_addr.sin_family = AF_INET;  // Menentukan keluarga alamat (IPv4).
     server_addr.sin_port = htons(PORT); // Konversi port ke format network byte order.
 
-    // Mengatur alamat IP server ke 172.22.85.245
-    if (inet_pton(AF_INET, "172.22.85.245", &server_addr.sin_addr) <= 0) { // Memeriksa apakah alamat IP valid.
+    // Mengatur alamat IP server ke ip yang diinginkan
+    if (inet_pton(AF_INET, "192.168.34.52", &server_addr.sin_addr) <= 0) { // Memeriksa apakah alamat IP valid.
         perror("Invalid address/Address not supported");
         return -1;
     }

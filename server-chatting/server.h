@@ -8,5 +8,5 @@
 
 void handle_client(int client_socket, int client_id);
 void trim_newline(char *str);
-
+void sigchld_handler(int signo); // Deklarasi signal handler
 #endif

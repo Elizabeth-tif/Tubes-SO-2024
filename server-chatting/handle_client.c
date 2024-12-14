@@ -1,14 +1,16 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
+#include <stdio.h>  // Library untuk fungsi input/output standar seperti printf dan fgets.
+#include <stdlib.h> // Library untuk fungsi umum seperti malloc, free, dan exit.
+#include <string.h> // Library untuk manipulasi string seperti memset, strlen, dan strcmp.
+#include <unistd.h> // Library untuk fungsi POSIX seperti close dan read.
 #include "server.h"
+
 
 // Fungsi untuk menghapus karakter newline (\n atau \r)
 void trim_newline(char *str) {
     size_t len = strlen(str);
     if (len > 0 && (str[len - 1] == '\n' || str[len - 1] == '\r')) {
         str[len - 1] = '\0';
+        len--;
     }
 }
 
@@ -30,7 +32,7 @@ void handle_client(int client_socket, int client_id) {
             printf("Client %d: %s\n", client_id, buffer);
 
             // Periksa apakah klien mengirim "exit"
-            if (strcmp(buffer, "exit") == 0) {
+            if (strcmp(buffer, "/exit") == 0) {
                 printf("Client %d requested to disconnect.\n", client_id);
                 break; // Keluar dari loop
             }
