@@ -82,11 +82,7 @@ Keandalan server juga terjaga karena fitur pembersihan otomatis menggunakan siny
 2. **Pengujian Beban**: Server dapat menangani hingga 100 klien sekaligus. Pengujian dengan 150 klien menunjukkan server masih mampu menangani koneksi meskipun melampaui batas maksimum yang ditentukan.
 3. **Pengujian Fungsionalitas**: Klien dapat mengirimkan pesan dan menerima balasan (echo) dari server.
 
----
 
 ## Kesimpulan
 Program ini memberikan solusi efektif untuk komunikasi berbasis jaringan dengan kemampuan menangani banyak klien menggunakan `fork()`. Dengan fitur broadcast dan penanganan proses anak otomatis, server dapat menangani komunikasi antar klien dengan baik. Meskipun ada beberapa keterbatasan terkait jumlah klien dan konsumsi sumber daya, program ini cukup handal untuk aplikasi sederhana yang membutuhkan komunikasi antar banyak pengguna.
 
----
-
-**Catatan**: Anda dapat menguji dan menjalankan server dengan skrip yang disediakan untuk simulasi banyak klien dan memastikan fungsionalitas program berjalan dengan baik.
